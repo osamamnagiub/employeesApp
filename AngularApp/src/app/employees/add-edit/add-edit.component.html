@@ -1,0 +1,34 @@
+<div class="card mb-3">
+  <div class="card-header">Employees</div>
+  <div class="card-body">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSave()" novalidate>
+      <input type="text" [hidden]="true" formControlName="id" class="form-control" id="id">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" formControlName="firstName" class="form-control" id="firstName" placeholder="Enter first name" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" formControlName="lastName" class="form-control" id="lastName" placeholder="Enter last name" required>
+      </div>
+      <div class="form-group">
+        <label for="birthDate">Birth date</label>
+       
+          <!-- <p-calendar  formControlName="birthdate" placeholder="Enter birthdate"></p-calendar> -->
+       
+        <input type="date" formControlName="dateOfBirth" class="form-control" id="dateOfBirth" placeholder="Enter birthdate , e.g, 1950-12-12">
+      </div>
+      <div class="form-group">
+        <label for="department">Department</label>
+        <select formControlName="departmentId" name="department" id="department" class="form-control">
+
+          <option [value]="item.id" *ngFor="let item of departments">{{item.name}}</option>
+        </select>
+      </div>
+
+      <button type="submit" [disabled]="!employeeForm.valid" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>
+
+

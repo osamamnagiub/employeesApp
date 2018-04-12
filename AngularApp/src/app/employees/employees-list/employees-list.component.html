@@ -1,0 +1,47 @@
+<div class="card  mb-3">
+  <div class="card-header">Employees</div>
+  <div class="card-body">
+    <div *ngIf="searchMode" class="form-group">
+      <label for="firstName">Search </label>
+      <input type="text" (keyup)="searchTerm$.next($event.target.value)"  class="form-control" id="searchBox" placeholder="firstname or lastname" >
+    </div>
+
+    <p-table [value]="data" selectionMode="single" [(selection)]="selectedEmployee" (onRowSelect)="onRowSelect($event)">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Birthdate</th>
+          <th>Department</th>
+          <th *ngIf="!searchMode"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-employee>
+        <tr>
+          <td>{{employee.firstName}}</td>
+          <td>{{employee.lastName}}</td>
+          <td>{{employee.dateOfBirth | date}}</td>
+          <td>{{employee.department?.name}}</td>
+          <td *ngIf="!searchMode">
+            <button pButton type="button" label="Edit" [routerLink]="['/employees/addEdit' , employee.id]" class="ui-button-info"></button>
+            <button pButton type="button" label="Delete" (click)="deleteEmployee(employee)" class="ui-button-danger"></button>
+          </td>
+
+
+
+        </tr>
+      </ng-template>
+
+    </p-table>
+
+  </div>
+</div>
+
+
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" #cd>
+  <p-footer>
+    <button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"></button>
+    <button type="button" pButton icon="fa-check" label="Yes" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
